@@ -1,0 +1,4 @@
+name: OneInTheChamber
+version: '${version}'
+main: dev.johnvinh.oneinthechamber.OneInTheChamber
+api-version: 1.19

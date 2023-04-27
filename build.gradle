@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
+    id 'com.github.johnrengelman.shadow' version "7.1.2"
 }
 
 group = 'dev.johnvinh'
@@ -18,7 +20,9 @@ repositories {
 }
 
 dependencies {
-compileOnly "org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT"
+    implementation "org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT"
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20'
 }
 
 def targetJavaVersion = 17
@@ -45,3 +49,19 @@ processResources {
         expand props
     }
 }
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '17'
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '17'
+}
+
+shadowJar {
+    dependencies {
+        include(dependency("org.jetbrains.kotlin:kotlin-stdlib"))
+    }
+}
+
+build.dependsOn shadowJar
