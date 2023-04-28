@@ -3,6 +3,7 @@ package dev.johnvinh.oneinthechamber.arena
 import dev.johnvinh.oneinthechamber.ConfigManager
 import dev.johnvinh.oneinthechamber.Cuboid
 import dev.johnvinh.oneinthechamber.OneInTheChamber
+import dev.johnvinh.oneinthechamber.game.ArenaState
 import dev.johnvinh.oneinthechamber.game.Game
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ComponentBuilder
@@ -40,6 +41,10 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
         Location(world, -46.0, -41.0, -17.0),
         Location(world, 8.6, -41.0, -45.0),
     )
+    /**
+     * The state of the arena.
+     */
+    var state = ArenaState.RECRUITING
 
     /**
      * Sends the game instructions to a player.
@@ -101,6 +106,11 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
 
         players.add(player.uniqueId)
         player.teleport(cuboid.randomLocation)
+
+        if (players.size == ConfigManager.getMaximumPlayers()) {
+            countdown.start()
+            state = ArenaState.STARTING
+        }
     }
 
     /**
