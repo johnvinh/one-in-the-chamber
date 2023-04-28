@@ -39,4 +39,11 @@ class ArenaManager(private val plugin: OneInTheChamber) {
         }
         return null
     }
+
+    /**
+     * Gets the arena with the least number of players.
+     */
+    fun getArenaWithLeastPlayers(): Arena? {
+        return arenas.minByOrNull { it.players.size }
+    }
 }
