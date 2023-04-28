@@ -1,6 +1,6 @@
 package dev.johnvinh.oneinthechamber.game
 
-enum class GameState {
+enum class ArenaState {
     RECRUITING,
     STARTING,
     LIVE,
