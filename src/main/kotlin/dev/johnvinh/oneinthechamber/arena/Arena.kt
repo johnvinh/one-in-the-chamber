@@ -88,5 +88,6 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
 
         players.remove(player.uniqueId)
         player.teleport(ConfigManager.getLobby())
+        player.sendTitle("", "", 0, 20, 0)
     }
 }
