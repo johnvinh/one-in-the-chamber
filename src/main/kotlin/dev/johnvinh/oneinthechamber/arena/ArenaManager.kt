@@ -1,5 +1,6 @@
 package dev.johnvinh.oneinthechamber.arena
 
+import dev.johnvinh.oneinthechamber.OneInTheChamber
 import dev.johnvinh.oneinthechamber.arena.Arena
 import dev.johnvinh.oneinthechamber.copyWorld
 import org.bukkit.Bukkit
@@ -10,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger
 /**
  * Manages arena instances.
  */
-class ArenaManager {
+class ArenaManager(private val plugin: OneInTheChamber) {
     val arenas: MutableList<Arena> = mutableListOf()
     private val instanceCounter = AtomicInteger()
 
@@ -23,6 +24,6 @@ class ArenaManager {
 
         val world = Bukkit.getWorld("oinc-$instanceId") ?: throw IOException("Error retrieving created world")
 
-        arenas.add(Arena(world))
+        arenas.add(Arena(plugin, world))
     }
 }
