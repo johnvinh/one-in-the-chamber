@@ -2,6 +2,7 @@ package dev.johnvinh.oneinthechamber
 
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.WorldCreator
 import org.bukkit.configuration.file.FileConfiguration
 
 class ConfigManager {
@@ -17,7 +18,9 @@ class ConfigManager {
         fun getMaximumPlayers() = config.getInt("maximum-players")
 
         fun getLobby(): Location {
-            val worldName = config.getString("lobby.world") ?: throw InvalidConfigurationException()
+            val worldName = config.getString("lobby.world") ?: throw InvalidConfigurationException("The lobby world is not set")
+            val world = Bukkit.getWorld(worldName) ?: Bukkit.createWorld(WorldCreator(worldName))
+            ?: throw InvalidConfigurationException("Error loading or creating the world")
 
             return Location(
                 Bukkit.getWorld(worldName),
