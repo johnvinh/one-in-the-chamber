@@ -4,6 +4,9 @@ import dev.johnvinh.oneinthechamber.ConfigManager
 import dev.johnvinh.oneinthechamber.Cuboid
 import dev.johnvinh.oneinthechamber.OneInTheChamber
 import dev.johnvinh.oneinthechamber.game.Game
+import net.md_5.bungee.api.ChatColor
+import net.md_5.bungee.api.chat.ComponentBuilder
+import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World
@@ -25,7 +28,7 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
     /**
      * The game for this instance
      */
-    val game = Game()
+    val game = Game(this)
     /**
      * The countdown for this instance
      */
@@ -37,6 +40,28 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
         Location(world, -46.0, -41.0, -17.0),
         Location(world, 8.6, -41.0, -45.0),
     )
+
+    /**
+     * Sends the game instructions to a player.
+     */
+    fun sendInstructions() {
+        val instructions = """
+        ${ChatColor.BOLD}${ChatColor.GOLD}-----------------------------------
+        ${ChatColor.GREEN}Welcome to One in the Chamber!
+        ${ChatColor.AQUA}Instructions:
+        ${ChatColor.WHITE}1. Kill other players in one hit using your bow
+        ${ChatColor.WHITE}2. If you hit your bow shot, you will get another arrow
+        ${ChatColor.WHITE}3. If you miss your bow shot, you will have to kill enemies with your sword
+        ${ChatColor.WHITE}4. Any kill will grant you another arrow, including melee kills
+        ${ChatColor.YELLOW}Good luck and have fun!
+        ${ChatColor.BOLD}${ChatColor.GOLD}-----------------------------------
+    """.trimIndent()
+
+        val component = TextComponent(*ComponentBuilder(instructions).create())
+        for (uuid in players) {
+            Bukkit.getPlayer(uuid)?.spigot()?.sendMessage(component)
+        }
+    }
 
     /**
      * Start the arena's game.
