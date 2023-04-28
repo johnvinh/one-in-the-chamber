@@ -12,6 +12,8 @@ class OneInTheChamber : JavaPlugin() {
     override fun onEnable() {
         ConfigManager.setupConfig(this)
         Bukkit.getPluginManager().registerEvents(GameListener(this), this)
+
+        getCommand("oinc")?.setExecutor(OincCommand(this))
     }
 
     override fun onDisable() {
