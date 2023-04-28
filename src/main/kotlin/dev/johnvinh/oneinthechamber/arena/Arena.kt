@@ -107,7 +107,10 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
         players.add(player.uniqueId)
         player.teleport(cuboid.randomLocation)
 
-        if (players.size >= ConfigManager.getMinimumPlayers()) {
+        val minimumPlayersReached = players.size >= ConfigManager.getMinimumPlayers()
+        val gameisNotStarting = state != ArenaState.STARTING
+
+        if (minimumPlayersReached && gameisNotStarting) {
             countdown.start()
             state = ArenaState.STARTING
         }
