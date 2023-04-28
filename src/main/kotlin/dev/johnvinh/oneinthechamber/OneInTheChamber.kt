@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin
 class InvalidConfigurationException: Exception()
 
 class OneInTheChamber : JavaPlugin() {
-    val arenaManager = ArenaManager()
+    val arenaManager = ArenaManager(this)
     override fun onEnable() {
         ConfigManager.setupConfig(this)
     }
