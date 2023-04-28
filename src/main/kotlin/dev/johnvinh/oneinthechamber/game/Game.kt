@@ -21,6 +21,13 @@ class Game(private val arena: Arena) {
     }
 
     /**
+     * Reset the game's state.
+     */
+    fun reset() {
+        kills.clear()
+    }
+
+    /**
      * Increment a player's kill count by one.
      * @param player The player whose kill count should be incremented
      */
