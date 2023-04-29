@@ -1,4 +1,8 @@
 name: OneInTheChamber
 version: '${version}'
+softdepend: ['Multiverse-Core']
 main: dev.johnvinh.oneinthechamber.OneInTheChamber
 api-version: 1.19
+commands:
+  oinc:
+    description: "Play the One in the Chamber minigame."

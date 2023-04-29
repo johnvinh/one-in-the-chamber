@@ -1,0 +1,9 @@
+minimum-players: 2
+maximum-players: 10
+lobby:
+  world: 'world'
+  x: -73.0
+  y: 137.0
+  z: -91.0
+  yaw: -0.9
+  pitch: -1.3

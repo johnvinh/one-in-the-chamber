@@ -17,12 +17,23 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven { url = "https://repo.onarandombox.com/content/groups/public/" }
+    maven {
+        name = "minebench-repo"
+        url = "https://repo.minebench.de/"
+    }
+    maven {
+        name = "worldedit-repo"
+        url = "https://maven.enginehub.org/repo/"
+    }
 }
 
 dependencies {
     implementation "org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT"
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20'
+    compileOnly 'com.onarandombox.multiversecore:multiverse-core:4.3.9'
+    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT'
 }
 
 def targetJavaVersion = 17
