@@ -121,11 +121,19 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
      * @param player the player to remove
      */
     fun removePlayer(player: Player) {
-        val tooFewPlayers = players.size < ConfigManager.getMinimumPlayers()
-        if (tooFewPlayers) throw TooFewPlayersException()
-
         players.remove(player.uniqueId)
         player.teleport(ConfigManager.getLobby())
         player.sendTitle("", "", 0, 20, 0)
+
+        val tooFewPlayers = players.size < ConfigManager.getMinimumPlayers()
+        val gameIsLive = state == ArenaState.LIVE
+        val gameIsStarting = state == ArenaState.STARTING
+        if (tooFewPlayers && gameIsLive) {
+            game.reset()
+            state = ArenaState.RECRUITING
+        } else if (tooFewPlayers && gameIsStarting) {
+            countdown.cancel()
+            state = ArenaState.RECRUITING
+        }
     }
 }

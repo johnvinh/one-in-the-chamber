@@ -23,7 +23,7 @@ class ConfigManager {
             ?: throw InvalidConfigurationException("Error loading or creating the world")
 
             return Location(
-                Bukkit.getWorld(worldName),
+                world,
                 config.getDouble("lobby.x"),
                 config.getDouble("lobby.y"),
                 config.getDouble("lobby.z"),
