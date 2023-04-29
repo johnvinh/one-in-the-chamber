@@ -38,8 +38,8 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
      * A Cuboid representing the play area of the arena.
      */
     val cuboid = Cuboid(
-        Location(world, -46.0, -41.0, -17.0),
-        Location(world, 8.6, -41.0, -45.0),
+        Location(world, 0.0, -28.0, 27.0),
+        Location(world, -55.0, -28.0, -1.0),
     )
     /**
      * The state of the arena.
