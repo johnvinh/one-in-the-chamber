@@ -76,7 +76,7 @@ class ArenaManager(private val plugin: OneInTheChamber) {
         val world: World = newArenaInstance.cbWorld
 
         // Set the paste location
-        val pasteLocation = Vector3.at(world.spawnLocation.x, world.spawnLocation.y, world.spawnLocation.z)
+        val pasteLocation = Vector3.at(0.0, 0.0, 0.0)
 
         // Paste the schematic into the world
         val editSession = WorldEdit.getInstance().newEditSession(BukkitAdapter.adapt(world))
