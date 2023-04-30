@@ -72,6 +72,8 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
      * Start the arena's game.
      */
     fun start() {
+        game.reset()
+        state = ArenaState.LIVE
         game.start()
     }
 
