@@ -63,4 +63,10 @@ class GameListener(private val plugin: OneInTheChamber) : Listener {
     fun onPlayerJoin(event: PlayerJoinEvent) {
         event.player.teleport(ConfigManager.getLobby())
     }
+
+    @EventHandler
+    fun onPlayerDeath(event: PlayerDeathEvent) {
+        val arena = plugin.arenaManager.getArena(event.entity) ?: return
+        event.entity.setBedSpawnLocation(arena.cuboid.randomLocation, true)
+    }
 }
