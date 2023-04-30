@@ -12,6 +12,7 @@ import com.sk89q.worldedit.function.operation.Operations
 import com.sk89q.worldedit.math.Vector3
 import dev.johnvinh.oneinthechamber.OneInTheChamber
 import dev.johnvinh.oneinthechamber.copyWorld
+import dev.johnvinh.oneinthechamber.game.ArenaState
 import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.WorldType
@@ -119,5 +120,12 @@ class ArenaManager(private val plugin: OneInTheChamber) {
      */
     fun getArenaWithLeastPlayers(): Arena? {
         return arenas.minByOrNull { it.players.size }
+    }
+
+    /**
+     * Gets the first arena that is not live.
+     */
+    fun getNonLiveArena(): Arena? {
+        return arenas.firstOrNull { it.state != ArenaState.LIVE }
     }
 }
