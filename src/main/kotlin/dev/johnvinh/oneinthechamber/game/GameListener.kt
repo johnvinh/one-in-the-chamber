@@ -26,8 +26,6 @@ class GameListener(private val plugin: OneInTheChamber) : Listener {
 
             if (shooter is Player) {
                 damaged.health = 0.0
-                val arena = plugin.arenaManager.getArena(shooter) ?: return
-                arena.game.addKill(shooter)
             }
         }
     }
