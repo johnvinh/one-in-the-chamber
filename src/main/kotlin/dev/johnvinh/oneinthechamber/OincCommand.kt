@@ -18,7 +18,7 @@ class OincCommand(val plugin: OneInTheChamber) : CommandExecutor {
         val leave = args.size == 1 && args[0].equals("leave", true)
 
         if (join) {
-            var arenaToJoin = plugin.arenaManager.getArenaWithLeastPlayers()
+            var arenaToJoin = plugin.arenaManager.getNonLiveArena()
             val alreadyPlaying = plugin.arenaManager.getArena(sender) != null
 
             if (alreadyPlaying) {
@@ -27,7 +27,7 @@ class OincCommand(val plugin: OneInTheChamber) : CommandExecutor {
             } else if (arenaToJoin == null) {
                 sender.sendMessage("${ChatColor.YELLOW}Creating new arena...")
                 plugin.arenaManager.createNewArena()
-                arenaToJoin = plugin.arenaManager.getArenaWithLeastPlayers()
+                arenaToJoin = plugin.arenaManager.getNonLiveArena()
                 arenaToJoin?.addPlayer(sender)
             } else {
                 try {
@@ -35,7 +35,7 @@ class OincCommand(val plugin: OneInTheChamber) : CommandExecutor {
                 } catch (e: GameFullException) {
                     sender.sendMessage("${ChatColor.YELLOW}Creating new arena...")
                     plugin.arenaManager.createNewArena()
-                    arenaToJoin = plugin.arenaManager.getArenaWithLeastPlayers()
+                    arenaToJoin = plugin.arenaManager.getNonLiveArena()
                     arenaToJoin?.addPlayer(sender)
                 }
             }
