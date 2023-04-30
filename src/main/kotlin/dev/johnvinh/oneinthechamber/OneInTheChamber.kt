@@ -20,6 +20,9 @@ class OneInTheChamber : JavaPlugin() {
     }
 
     override fun onDisable() {
-
+        // Delete all multicore instances starting with oinc-
+        core.mvWorldManager.mvWorlds.filter { it.name.startsWith("oinc-") }.forEach {
+            core.mvWorldManager.deleteWorld(it.name)
+        }
     }
 }
