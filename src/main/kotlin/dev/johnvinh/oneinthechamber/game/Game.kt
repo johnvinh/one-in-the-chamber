@@ -25,6 +25,15 @@ class Game(private val arena: Arena) {
      */
     fun reset() {
         kills.clear()
+        // Give each player a bow and an arrow
+        for (uuid in arena.players) {
+            val player = arena.plugin.server.getPlayer(uuid) ?: continue
+            player.inventory.clear()
+            player.inventory.addItem(ItemStack(Material.BOW))
+            player.inventory.addItem(ItemStack(Material.ARROW, 1))
+            player.health = 20.0
+            player.foodLevel = 20
+        }
     }
 
     /**
