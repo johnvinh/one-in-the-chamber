@@ -67,6 +67,7 @@ class GameListener(private val plugin: OneInTheChamber) : Listener {
     @EventHandler
     fun onPlayerDeath(event: PlayerDeathEvent) {
         val arena = plugin.arenaManager.getArena(event.entity) ?: return
+        event.drops.clear()
         event.entity.setBedSpawnLocation(arena.cuboid.randomLocation, true)
         plugin.server.scheduler.runTaskLater(plugin, Runnable {
             event.entity.spigot().respawn()
