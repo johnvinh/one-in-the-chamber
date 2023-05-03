@@ -2,6 +2,7 @@ package dev.johnvinh.oneinthechamber.game
 
 import dev.johnvinh.oneinthechamber.ConfigManager
 import dev.johnvinh.oneinthechamber.OneInTheChamber
+import org.bukkit.Material
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -10,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerPickupArrowEvent
+import org.bukkit.inventory.ItemStack
 
 class GameListener(private val plugin: OneInTheChamber) : Listener {
     /**
@@ -68,6 +70,9 @@ class GameListener(private val plugin: OneInTheChamber) : Listener {
         event.entity.setBedSpawnLocation(arena.cuboid.randomLocation, true)
         plugin.server.scheduler.runTaskLater(plugin, Runnable {
             event.entity.spigot().respawn()
+            event.entity.inventory.clear()
+            event.entity.inventory.addItem(ItemStack(Material.ARROW))
+            event.entity.inventory.addItem(ItemStack(Material.BOW))
         }, 40)
     }
 }
