@@ -4,4 +4,5 @@ enum class ArenaState {
     RECRUITING,
     STARTING,
     LIVE,
+    ENDING,
 }

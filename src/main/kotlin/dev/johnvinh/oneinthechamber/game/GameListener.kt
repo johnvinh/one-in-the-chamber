@@ -10,6 +10,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerPickupArrowEvent
 import org.bukkit.inventory.ItemStack
 
@@ -78,5 +79,14 @@ class GameListener(private val plugin: OneInTheChamber) : Listener {
             event.entity.inventory.addItem(ItemStack(Material.ARROW))
             event.entity.inventory.addItem(ItemStack(Material.BOW))
         }, 40)
+    }
+
+    /**
+     * Prevent players from moving if the game is ending.
+     */
+    @EventHandler
+    fun onPlayerMove(event: PlayerMoveEvent) {
+        val arena = plugin.arenaManager.getArena(event.player) ?: return
+        if (arena.state == ArenaState.ENDING) event.isCancelled = true
     }
 }
