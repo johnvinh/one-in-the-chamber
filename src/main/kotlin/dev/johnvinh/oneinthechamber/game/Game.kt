@@ -10,7 +10,7 @@ import java.util.UUID
 /**
  * Handles the game's functionality and point tracking
  */
-class Game(private val arena: Arena) {
+class Game(private val arena: Arena, private val scoreboard: GameScoreboard) {
     val kills = HashMap<UUID, Int>()
 
     /**
@@ -33,6 +33,7 @@ class Game(private val arena: Arena) {
             player.inventory.addItem(ItemStack(Material.ARROW, 1))
             player.health = 20.0
             player.foodLevel = 20
+            scoreboard.updateScore(player, 0)
         }
     }
 
@@ -42,6 +43,7 @@ class Game(private val arena: Arena) {
      */
     fun addKill(player: Player) {
         kills[player.uniqueId] = kills.getOrDefault(player.uniqueId, 0) + 1
+        scoreboard.updateScore(player, kills.getOrDefault(player.uniqueId, 0))
         player.sendMessage("${ChatColor.GREEN}You got a kill! You now have ${kills[player.uniqueId]}!")
         player.inventory.addItem(ItemStack(Material.ARROW))
     }
