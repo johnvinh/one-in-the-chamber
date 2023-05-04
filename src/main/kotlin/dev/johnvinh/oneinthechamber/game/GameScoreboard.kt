@@ -16,7 +16,7 @@ class GameScoreboard {
         if (scoreBoardManager != null) {
             scoreboard = scoreBoardManager.newScoreboard
         }
-        objective = scoreboard.registerNewObjective("kills", "dummy", "${ChatColor.YELLOW}Points")
+        objective = scoreboard.registerNewObjective("kills", "dummy", "${ChatColor.YELLOW}Kills")
         objective.displaySlot = DisplaySlot.SIDEBAR
     }
 
