@@ -131,6 +131,10 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
     fun removePlayer(player: Player) {
         players.remove(player.uniqueId)
         player.teleport(ConfigManager.getLobby())
+        val scoreBoardManager = Bukkit.getScoreboardManager()
+        if (scoreBoardManager != null) {
+            player.scoreboard = scoreBoardManager.newScoreboard
+        }
         player.sendTitle("", "", 0, 20, 0)
 
         val tooFewPlayers = players.size < ConfigManager.getMinimumPlayers()
