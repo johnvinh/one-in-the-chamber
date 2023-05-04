@@ -5,6 +5,7 @@ import dev.johnvinh.oneinthechamber.Cuboid
 import dev.johnvinh.oneinthechamber.OneInTheChamber
 import dev.johnvinh.oneinthechamber.game.ArenaState
 import dev.johnvinh.oneinthechamber.game.Game
+import dev.johnvinh.oneinthechamber.game.GameScoreboard
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
@@ -27,10 +28,6 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
      */
     val players: MutableList<UUID> = mutableListOf()
     /**
-     * The game for this instance
-     */
-    val game = Game(this)
-    /**
      * The countdown for this instance
      */
     val countdown = Countdown(plugin, this)
@@ -45,6 +42,14 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
      * The state of the arena.
      */
     var state = ArenaState.RECRUITING
+    /**
+     * The game's scoreboard.
+     */
+    private val scoreboard = GameScoreboard()
+    /**
+     * The game for this instance
+     */
+    val game = Game(this, scoreboard)
 
     /**
      * Sends the game instructions to a player.
