@@ -14,6 +14,7 @@ import dev.johnvinh.oneinthechamber.OneInTheChamber
 import dev.johnvinh.oneinthechamber.copyWorld
 import dev.johnvinh.oneinthechamber.game.ArenaState
 import org.bukkit.Bukkit
+import org.bukkit.GameRule
 import org.bukkit.World
 import org.bukkit.WorldType
 import org.bukkit.entity.Player
@@ -75,6 +76,11 @@ class ArenaManager(private val plugin: OneInTheChamber) {
 
         // Get the world instance created with Multiverse-Core
         val world: World = newArenaInstance.cbWorld
+
+        // Stop time progression
+        world.time = 1000
+        world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false)
+        world.setGameRule(GameRule.DO_MOB_SPAWNING, false)
 
         // Set the paste location
         val pasteLocation = Vector3.at(0.0, 0.0, 0.0)
