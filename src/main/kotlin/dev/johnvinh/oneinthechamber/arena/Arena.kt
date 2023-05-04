@@ -63,6 +63,7 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
         ${ChatColor.WHITE}2. If you hit your bow shot, you will get another arrow
         ${ChatColor.WHITE}3. If you miss your bow shot, you will have to kill enemies with your sword
         ${ChatColor.WHITE}4. Any kill will grant you another arrow, including melee kills
+        ${ChatColor.WHITE}5. The first player to get 20 kills wins.
         ${ChatColor.YELLOW}Good luck and have fun!
         ${ChatColor.BOLD}${ChatColor.GOLD}-----------------------------------
     """.trimIndent()
