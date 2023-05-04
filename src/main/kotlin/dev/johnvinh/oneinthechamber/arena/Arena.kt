@@ -114,6 +114,7 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
 
         players.add(player.uniqueId)
         player.teleport(cuboid.randomLocation)
+        player.inventory.clear()
 
         val minimumPlayersReached = players.size >= ConfigManager.getMinimumPlayers()
         val gameisNotStarting = state != ArenaState.STARTING
@@ -130,7 +131,9 @@ class Arena(val plugin: OneInTheChamber, val world: World) {
      */
     fun removePlayer(player: Player) {
         players.remove(player.uniqueId)
+        player.inventory.clear()
         player.teleport(ConfigManager.getLobby())
+
         val scoreBoardManager = Bukkit.getScoreboardManager()
         if (scoreBoardManager != null) {
             player.scoreboard = scoreBoardManager.newScoreboard
