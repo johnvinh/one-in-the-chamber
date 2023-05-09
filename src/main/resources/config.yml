@@ -1,5 +1,6 @@
 minimum-players: 2
 maximum-players: 10
+arena-schematic: 'oinc.schem'
 lobby:
   world: 'world'
   x: -73.0

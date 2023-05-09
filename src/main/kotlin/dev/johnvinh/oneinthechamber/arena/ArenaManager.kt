@@ -10,6 +10,8 @@ import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader
 import com.sk89q.worldedit.function.operation.ForwardExtentCopy
 import com.sk89q.worldedit.function.operation.Operations
 import com.sk89q.worldedit.math.Vector3
+import dev.johnvinh.oneinthechamber.ConfigManager
+import dev.johnvinh.oneinthechamber.InvalidConfigurationException
 import dev.johnvinh.oneinthechamber.OneInTheChamber
 import dev.johnvinh.oneinthechamber.copyWorld
 import dev.johnvinh.oneinthechamber.game.ArenaState
@@ -50,7 +52,8 @@ class ArenaManager(private val plugin: OneInTheChamber) {
         val newArenaInstance: MultiverseWorld = worldManager.getMVWorld(instanceName) ?: throw IOException("Failed to get world for arena instance")
 
         // Load the schematic file
-        val schematicFile = File(plugin.dataFolder.parent + "/WorldEdit/schematics/oinc.schem")
+        val schematicName = ConfigManager.getWorldEditSchematicName() ?: throw InvalidConfigurationException("No WorldEdit schematic name specified")
+        val schematicFile = File(plugin.dataFolder, schematicName)
         val clipboard: BlockArrayClipboard
         var fis: FileInputStream? = null
         var reader: ClipboardReader? = null
