@@ -31,5 +31,7 @@ class ConfigManager {
                 config.getDouble("lobby.pitch").toFloat(),
             )
         }
+
+        fun getWorldEditSchematicName() = config.getString("arena-schematic")
     }
 }
