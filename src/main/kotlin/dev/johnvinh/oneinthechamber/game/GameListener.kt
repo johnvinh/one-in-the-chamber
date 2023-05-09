@@ -70,14 +70,14 @@ class GameListener(private val plugin: OneInTheChamber) : Listener {
 
     @EventHandler
     fun onPlayerDeath(event: PlayerDeathEvent) {
-        val arena = plugin.arenaManager.getArena(event.entity) ?: return
+        val player = event.entity
+        val arena = plugin.arenaManager.getArena(player) ?: return
         event.drops.clear()
         event.entity.setBedSpawnLocation(arena.cuboid.randomLocation, true)
         plugin.server.scheduler.runTaskLater(plugin, Runnable {
-            event.entity.spigot().respawn()
-            event.entity.inventory.clear()
-            event.entity.inventory.addItem(ItemStack(Material.ARROW))
-            event.entity.inventory.addItem(ItemStack(Material.BOW))
+            player.spigot().respawn()
+            player.inventory.clear()
+            arena.game.resetPlayerItems(player)
         }, 40)
     }
 

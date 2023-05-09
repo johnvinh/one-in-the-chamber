@@ -33,12 +33,21 @@ class Game(private val arena: Arena, private val scoreboard: GameScoreboard) {
         for (uuid in arena.players) {
             val player = arena.plugin.server.getPlayer(uuid) ?: continue
             player.inventory.clear()
-            player.inventory.addItem(ItemStack(Material.BOW))
-            player.inventory.addItem(ItemStack(Material.ARROW, 1))
+            resetPlayerItems(player)
             player.health = 20.0
             player.foodLevel = 20
             scoreboard.updateScore(player, 0)
         }
+    }
+
+    /**
+     * Give a player the items they need to play the game.
+     * @param player The player to add items to.
+     */
+    fun resetPlayerItems(player: Player) {
+        player.inventory.addItem(ItemStack(Material.BOW))
+        player.inventory.addItem(ItemStack(Material.ARROW, 1))
+        player.inventory.addItem(ItemStack(Material.WOODEN_SWORD))
     }
 
     /**
