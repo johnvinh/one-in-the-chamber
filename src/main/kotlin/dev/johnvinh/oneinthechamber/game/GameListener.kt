@@ -15,6 +15,26 @@ import org.bukkit.event.player.PlayerPickupArrowEvent
 import org.bukkit.inventory.ItemStack
 
 class GameListener(private val plugin: OneInTheChamber) : Listener {
+
+    /**
+     * Checks if two arenas are both in an arena, in the same arena, and that arena is live.
+     * @param damaged The damaged player.
+     * @param damager The player who is damaging the damaged player.
+     */
+    private fun playerIsNotInArenaOrNotLive(damager: Player, damaged: Player): Boolean {
+        val damagerArena = plugin.arenaManager.getArena(damager)
+        val damagedArena = plugin.arenaManager.getArena(damaged)
+
+        if (damagedArena == null || damagerArena == null) {
+            return true
+        } else if (damagerArena != damagedArena) {
+            return true
+        } else if (damagerArena.state != ArenaState.LIVE) {
+            return true
+        }
+        return false
+    }
+
     /**
      * Kill a player instantly with a bow shot and increment point
      */
@@ -28,10 +48,18 @@ class GameListener(private val plugin: OneInTheChamber) : Listener {
             val shooter = damager.shooter
 
             if (shooter is Player) {
-                if (plugin.arenaManager.getArena(shooter) == null || plugin.arenaManager.getArena(damaged) == null) {
+                if (playerIsNotInArenaOrNotLive(shooter, damaged)) {
+                    event.isCancelled = true
                     return
                 }
                 damaged.health = 0.0
+            }
+        }
+        // Other damage
+        else if (damaged is Player && damager is Player) {
+            if (playerIsNotInArenaOrNotLive(damager, damaged)) {
+                event.isCancelled = true
+                return
             }
         }
     }
