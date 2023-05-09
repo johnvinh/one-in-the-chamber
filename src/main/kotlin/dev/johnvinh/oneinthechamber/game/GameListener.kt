@@ -7,6 +7,7 @@ import org.bukkit.entity.Arrow
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockDamageEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
@@ -116,5 +117,13 @@ class GameListener(private val plugin: OneInTheChamber) : Listener {
     fun onPlayerMove(event: PlayerMoveEvent) {
         val arena = plugin.arenaManager.getArena(event.player) ?: return
         if (arena.state == ArenaState.ENDING) event.isCancelled = true
+    }
+
+    /**
+     * Prevent players from damaging blocks inside arenas.
+     */
+    @EventHandler
+    fun onBlockDamage(event: BlockDamageEvent) {
+        if (plugin.arenaManager.getArena(event.player) != null) event.isCancelled = true
     }
 }
